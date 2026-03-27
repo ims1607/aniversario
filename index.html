@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuestra Historia</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="lock-screen">
+        <div class="lock-content">
+            <h1 class="wait-title">ESPERA UN POCO...</h1>
+            <div id="countdown">00:00:00</div>
+            <p class="lock-date">El universo se abrirá el 28 de Marzo a las 16:00</p>
+        </div>
+    </div>
+
+    <div id="canvas-container"></div>
+    <div class="main-title">
+        <h1 class="glow-title">NUESTRA HISTORIA</h1>
+    </div>
+    <div id="labels-container"></div>
+
+    <div id="memory-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-button">&times;</span>
+            <h2 id="modal-date"></h2>
+            <hr class="modal-hr">
+            <p id="modal-text"></p>
+        </div>
+    </div>
+    
+    <script type="importmap">
+        { "imports": { "three": "https://unpkg.com/three@0.160.0/build/three.module.js", "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
+    </script>
+    <script type="module" src="script.js"></script>
+</body>
+</html>
