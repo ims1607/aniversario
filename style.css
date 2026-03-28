@@ -1,41 +1,61 @@
-body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background-color: #000; color: white; font-family: 'Segoe UI', sans-serif; }
-
-#lock-screen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.9) 100%);
-    display: flex; justify-content: center; align-items: flex-end;
-    padding-bottom: 80px; z-index: 9999; transition: opacity 1.5s ease-in-out;
-    pointer-events: all;
+body, html { 
+    margin: 0; padding: 0; width: 100%; height: 100%; 
+    overflow: hidden; background-color: #000; color: white; 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
 }
-#lock-screen.unlocked { opacity: 0; pointer-events: none; }
-
-.wait-title { font-weight: 200; letter-spacing: 5px; color: #ffcc00; margin: 0; font-size: 1.2rem; }
-#countdown { font-size: 4rem; font-weight: bold; text-shadow: 0 0 25px #ffcc00; margin: 5px 0; color: #fff; }
-.lock-date { opacity: 0.6; font-size: 0.7rem; letter-spacing: 2px; text-transform: uppercase; }
 
 #canvas-container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; }
 #labels-container { position: absolute; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 5; }
 
-.heart-wrapper { display: flex; flex-direction: column; align-items: center; pointer-events: auto; will-change: transform; transition: 0.3s; }
-.heart-shape { position: relative; width: 20px; height: 20px; background-color: #ff3366; transform: rotate(-45deg); box-shadow: 0 0 20px #ff3366; animation: heartbeat 1.4s infinite ease-in-out; }
-.heart-shape::before, .heart-shape::after { content: ""; position: absolute; width: 20px; height: 20px; background-color: #ff3366; border-radius: 50%; }
-.heart-shape::before { top: -10px; left: 0; }
-.heart-shape::after { left: 10px; top: 0; }
+/* Título superior */
+.main-overlay { position: absolute; top: 5%; width: 100%; text-align: center; z-index: 10; pointer-events: none; }
+.glow-text { font-weight: 200; letter-spacing: 8px; text-shadow: 0 0 15px #ffcc00; margin: 0; font-size: 1.4rem; color: #ffcc00; }
+.sub-text { opacity: 0.7; font-size: 0.75rem; letter-spacing: 4px; margin-top: 5px; }
 
-.special-heart .heart-shape { 
-    background-color: #ffcc00; width: 40px; height: 40px; 
-    box-shadow: 0 0 50px #ffcc00, 0 0 100px rgba(255, 204, 0, 0.4); 
-}
-.special-heart .heart-shape::before, .special-heart .heart-shape::after { background-color: #ffcc00; width: 40px; height: 40px; }
-.special-heart .heart-shape::before { top: -20px; }
-.special-heart .heart-shape::after { left: 20px; }
+/* Pantalla de Bloqueo */
+#lock-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: black; display: flex; justify-content: center; align-items: center; z-index: 9999; transition: opacity 1.2s ease; }
+#lock-screen.unlocked { opacity: 0; pointer-events: none; }
+#countdown { font-size: 4.5rem; font-weight: bold; color: #ffcc00; text-shadow: 0 0 25px rgba(255,204,0,0.6); }
 
-.label-date { color: white; font-size: 13px; font-weight: bold; background: rgba(0, 0, 0, 0.7); padding: 5px 15px; border-radius: 20px; border: 1px solid rgba(255, 51, 102, 0.4); margin-top: 40px; }
-.special-heart .label-date { border-color: #ffcc00; color: #ffcc00; font-size: 18px; }
+/* Corazones Estilo Galaxia */
+.heart-wrapper { display: flex; flex-direction: column; align-items: center; pointer-events: auto; cursor: pointer; }
+.heart-shape { position: relative; width: 15px; height: 15px; background-color: #ff3366; transform: rotate(-45deg); animation: heartbeat 1.5s infinite ease-in-out; }
+.heart-shape::before, .heart-shape::after { content: ""; position: absolute; width: 15px; height: 15px; background-color: inherit; border-radius: 50%; }
+.heart-shape::before { top: -8px; left: 0; }
+.heart-shape::after { left: 8px; top: 0; }
 
-.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; justify-content: center; align-items: center; z-index: 10000; }
+/* EL SOL (24 Marzo 2024) */
+.sun-heart .heart-shape { width: 45px; height: 45px; background-color: #ffcc00; box-shadow: 0 0 60px #ffcc00, 0 0 100px rgba(255, 204, 0, 0.4); }
+.sun-heart .heart-shape::before, .sun-heart .heart-shape::after { width: 45px; height: 45px; }
+.sun-heart .heart-shape::before { top: -22px; }
+.sun-heart .heart-shape::after { left: 22px; }
+
+/* ANIVERSARIOS (Dorados) */
+.anniversary-heart .heart-shape { background-color: #ffcc00; box-shadow: 0 0 25px #ffcc00; }
+
+.label-date { margin-top: 35px; color: white; font-size: 11px; background: rgba(0,0,0,0.85); padding: 5px 12px; border-radius: 15px; border: 1px solid rgba(255, 51, 102, 0.4); white-space: nowrap; }
+.sun-heart .label-date, .anniversary-heart .label-date { border-color: #ffcc00; color: #ffcc00; font-weight: bold; font-size: 13px; }
+
+/* MODAL CORREGIDO */
+.modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); display: flex; justify-content: center; align-items: center; z-index: 10000; padding: 20px; }
 .modal.hidden { display: none; }
-.modal-content { background: #111; padding: 40px; border-radius: 30px; border: 1px solid #ffcc00; max-width: 400px; text-align: center; }
-.close-button { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #ffcc00; }
+.modal-content { 
+    background: #0a0a0a; padding: 35px; border-radius: 25px; border: 1.5px solid #ffcc00; 
+    width: 100%; max-width: 550px; max-height: 85vh; display: flex; flex-direction: column; position: relative;
+    box-shadow: 0 0 40px rgba(255, 204, 0, 0.15);
+}
+.scroll-area { overflow-y: auto; padding-right: 10px; margin-top: 10px; }
+#modal-text { 
+    white-space: pre-wrap; text-align: left; line-height: 1.8; color: #f0f0f0; font-size: 1.05rem; 
+}
+#modal-date { color: #ffcc00; margin: 0; text-align: center; letter-spacing: 2px; }
+.divider { height: 1px; background: linear-gradient(90deg, transparent, #ffcc00, transparent); margin: 20px 0; opacity: 0.5; }
+.close-button { position: absolute; top: 15px; right: 20px; font-size: 32px; color: #ffcc00; cursor: pointer; transition: 0.3s; }
+.close-button:hover { transform: scale(1.2); }
 
-@keyframes heartbeat { 0%, 100% { transform: rotate(-45deg) scale(1); } 15% { transform: rotate(-45deg) scale(1.2); } }
+/* Animación Latido */
+@keyframes heartbeat { 0%, 100% { transform: rotate(-45deg) scale(1); } 20% { transform: rotate(-45deg) scale(1.15); } }
+
+/* Scrollbar Personalizada */
+.scroll-area::-webkit-scrollbar { width: 5px; }
+.scroll-area::-webkit-scrollbar-thumb { background: #ffcc00; border-radius: 10px; }
